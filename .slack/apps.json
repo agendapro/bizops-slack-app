@@ -1,0 +1,11 @@
+{
+  "apps": {
+    "T225LF36F": {
+      "app_id": "A05U3DP9WTH",
+      "IsDev": false,
+      "team_domain": "agendapro",
+      "team_id": "T225LF36F"
+    }
+  },
+  "default": "agendapro"
+}
