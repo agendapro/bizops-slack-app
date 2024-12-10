@@ -1,0 +1,16 @@
+name: Good Reviewers Assign
+on:
+  pull_request:
+    types: [opened, ready_for_review, reopened]
+    branches: [ main ]
+jobs:
+  assign_reviewers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: agendapro/good-reviewers-action@v1
+        with:
+          pr_id: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.AP_GITHUB_TOKEN }}
+          repo_name: ${{ github.repository }}
+          org_name: ${{ github.repository_owner }}
+          team_name: 'goodreviewersbackend'
