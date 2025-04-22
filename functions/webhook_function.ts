@@ -1,5 +1,5 @@
 import { DefineFunction, Schema, SlackFunction } from "deno-slack-sdk/mod.ts";
-
+import { fetchToN8N } from "../utils/fetch.ts";
 /**
  * Functions are reusable building blocks of automation that accept
  * inputs, perform calculations, and provide outputs. Functions can
@@ -33,31 +33,10 @@ export const WebhookFunctionDefinition = DefineFunction({
 
 export default SlackFunction(
   WebhookFunctionDefinition,
-  ({ inputs }) => {
+  async ({ inputs }) => {
     const { webhook, method, body } = inputs as { webhook: string; method: string; body: string };
 
-    const jsonBody = body.replace(/(\r\n|\n|\r)/gm, "").split("<{{,}}>").reduce((result, current) => {
-      const [key, value] = current.split("<{{=}}>");
-      
-      if(key === undefined) return result;
-      
-      return {
-        ...result,
-        [key]: value,
-      };
-    }, {});
-
-    if(method === "GET") {
-      fetch(`${webhook}?${new URLSearchParams(jsonBody)}`);
-    } else {
-      fetch(webhook, {
-        method,
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(jsonBody),
-      });
-    }
+    fetchToN8N(webhook, method, body);
 
     return { outputs: { webhook, body } };
   },
