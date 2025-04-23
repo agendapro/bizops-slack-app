@@ -33,7 +33,7 @@ export const WebhookFunctionDefinition = DefineFunction({
 
 export default SlackFunction(
   WebhookFunctionDefinition,
-  async ({ inputs }) => {
+  ({ inputs }) => {
     const { webhook, method, body } = inputs as { webhook: string; method: string; body: string };
 
     fetchToN8N(webhook, method, body);

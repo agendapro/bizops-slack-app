@@ -12,8 +12,8 @@ export default Manifest({
   icon: "assets/biz-ops-icon.png",
   workflows: [WebhookWorkflow],
   outgoingDomains: [
-    "n8n-prd.agendapro-devops.com",
     "n8n.agendapro-bizops.com",
+    "n8n-staging.agendapro-devops.com",
   ],
   botScopes: ["commands", "chat:write", "chat:write.public"],
 });
